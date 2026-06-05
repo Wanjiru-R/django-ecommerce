@@ -1,1 +1,1 @@
-# my
+django + python eccommerce website
