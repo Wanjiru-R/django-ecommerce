@@ -1,12 +1,12 @@
-# from django.http import HttpResponse
-# from django.template import loader
+
 from django.shortcuts import render,redirect
 from . models import Product
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-# def shop(request):
-#   template = loader.get_template('shop.html')
-#   return HttpResponse(template.render())
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+from .forms import SignUpForm
+from django import forms
 
 def shop(request):
   products = Product.objects.all()
@@ -27,8 +27,27 @@ def login_user(request):
   else:
     return render(request, 'login.html')
 
+
+      
 def logout_user(request):
         logout(request)
         messages.success(request, 'You have been logged out.')
         return redirect('shop')
   
+def register_user(request):
+    form = SignUpForm()
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            messages.success(request, 'Registration successful.')
+            return redirect('shop')
+        else:
+            messages.error(request, 'Registration failed. Please correct the errors below.')
+            return redirect('register')
+    else:
+        return render(request, 'register.html')
