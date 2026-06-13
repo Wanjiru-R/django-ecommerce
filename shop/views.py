@@ -11,6 +11,10 @@ from django import forms
 def shop(request):
   products = Product.objects.all()
   return render(request, 'index.html', {'products': products})
+def product(request,pk):
+    product = Product.objects.get(id=pk)
+    return render(request, 'product.html', {'product': product})
+
 
 def login_user(request):
   if request.method == 'POST':
