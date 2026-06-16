@@ -1,6 +1,8 @@
+<html>
 
-
-
+{%load bootstrap5%}
+{%bootstrap_css%}
+{%bootstrap_javascript%}
 {% block content %}
 <header class="bg-dark py-5">
             <div class="container px-4 px-lg-5 my-5">
@@ -22,7 +24,8 @@
   <div class="mb-3">
    
     <input type="text" class="form-control" name="username" placeholder="username">
-    
+     <div class="valid-feedback">Valid.</div>
+    <div class="invalid-feedback">Please fill out this field.</div>
   </div>
   <br/><br/>
   <div class="mb-3">
@@ -45,5 +48,6 @@
                 </center>
             </div>
         </div>
-
+        
         {%endblock%}
+</html>
