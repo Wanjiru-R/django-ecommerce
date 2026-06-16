@@ -1,6 +1,6 @@
 
 from django.shortcuts import render,redirect
-from . models import Product
+from . models import Product, Category
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -11,9 +11,21 @@ from django import forms
 def shop(request):
   products = Product.objects.all()
   return render(request, 'index.html', {'products': products})
+
 def product(request,pk):
     product = Product.objects.get(id=pk)
     return render(request, 'product.html', {'product': product})
+
+
+def category(request,foo):
+    foo = foo.replace('-', ' ')
+    try:
+        category = category.objects.get(name=foo)
+        products = Product.objects.filter(category=category)
+        return render(request, 'category.html', {'products': products, 'category': category})
+    except:
+        messages.success(request, 'Category not found.')
+        return redirect('shop')
 
 
 def login_user(request):
