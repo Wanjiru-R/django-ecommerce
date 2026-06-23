@@ -12,6 +12,8 @@ def shop(request):
   products = Product.objects.all()
   return render(request, 'index.html', {'products': products})
 
+def about(request):
+    return render(request,'about.html',{'about':about})
 def product(request,pk):
     product = Product.objects.get(id=pk)
     return render(request, 'product.html', {'product': product})

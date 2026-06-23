@@ -1,4 +1,4 @@
-from .cart import cart
+# from .cart import cart
 
-def cart(request):
-    return{'cart': Cart(request)}
+# def cart(request):
+#     return{'cart': Cart(request)}
